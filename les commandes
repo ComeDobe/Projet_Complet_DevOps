@@ -1,6 +1,8 @@
 
 # Histoirique des commandes
 
+# Partie Docker
+
 #  Installation de crictl et demarrage de minikube
 
 - vagrant up --provision
@@ -76,4 +78,45 @@
 - docker rm ic-webapp-test
 - docker run -d --name ic-webapp-test -p 8000:8080 -e ODO_URL=http://google.fr PGADMIN_URL=htpp://youtube.com cdobe01/ic-webapp:v1.0
 
+# Parie Kubernetes
 
+- cd ..
+- ll
+-  cd manifestes-k8s
+- ll
+- cd ic-webapp
+- sudo nano ic-webapp-deployment.yml
+- kubectl get ns
+- kubectl create -f ic-webapp-namespace.yml
+- kubectl get ns
+- cd ..
+- kubectl apply -f ./ic-webapp/
+- kubectl get deploy -n ic-webapp
+- kubectl get pods -n ic-webapp
+- kubectl describe pod ic-webapp-5b887b7bcf-kzps2 -n ic-webapp
+- kubectl delete pod ic-webapp-5b887b7bcf-kzps2 -n ic-webapp
+
+-> Redeploiement du frontend
+
+- kubectl delete pod ic-webapp-5b887b7bcf-kzps2 -n ic-webapp
+- kubectl apply -f ic-webapp-deployment.yml
+- kubectl get deployments -n ic-webapp
+- kubectl get pods -n ic-webapp
+- kubectl get svc -n ic-webapp
+- kubectl describe svc -n ic-webapp  -> visualisation de port de deploiement
+
+-> Deploiement du backend
+
+-  kubectl apply -f postgres/
+- kubectl get svc -n ic-webapp
+- kubectl get deploy -n ic-webapp
+- kubectl get secret-n ic-webapp
+
+-> Deploiement de Odo
+
+- kubectl apply -f odoo/
+- kubectl get svc -n ic-webapp
+- kubectl get deploy -n ic-webapp
+- kubectl get secret-n ic-webapp
+- kubectl get pvc -n ic-webapp
+- kubectl get pv -n ic-webapp
