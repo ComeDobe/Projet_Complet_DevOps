@@ -12,6 +12,15 @@
 -> Extraction du fichier
 - sudo tar zxvf crictl-${VERSION}-linux-amd64.tar.gz -C /usr/local/bin
 -> version de la version
+
+# Installation de nano
+- sudo yum install nano
+- ls -l /usr/local/bin/crictl
+-> Créer un Lien Symbolique
+- sudo ln -s /usr/local/bin/crictl /usr/bin/crictl
+-> Vérifier le Lien Symbolique
+- ls -l /usr/bin/crictl
+
 - crictl version
 -> Nettoyage de l'espace
 - rm -f crictl-${VERSION}-linux-amd64.tar.gz
@@ -21,14 +30,19 @@
 
 - sudo yum install -y go git
 - git clone https://github.com/Mirantis/cri-dockerd.git
- - cd cri-dockerd
- - cd /home/vagrant/cri-dockerd
- - make cri-dockerd
+- cd cri-dockerd
+- cd /home/vagrant/cri-dockerd
+- make cri-dockerd
 - sudo install -o root -g root -m 0755 cri-dockerd /usr/local/bin/cri-dockerd
 - sudo install packaging/systemd/* /etc/systemd/system
 - sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
 - sudo systemctl daemon-reload
 - sudo systemctl enable --now cri-docker.socket
+# Insttalation de pluggin cni
+
+- wget https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
+- sudo mkdir -p /opt/cni/bin
+- sudo tar -xzvf cni-plugins-linux-amd64-v0.9.1.tgz -C /opt/cni/bin
 
 -> Demarrage de minikube
 - minikube start --driver=none
