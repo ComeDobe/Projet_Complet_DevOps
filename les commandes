@@ -38,6 +38,7 @@
 - sudo sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/system/cri-docker.service
 - sudo systemctl daemon-reload
 - sudo systemctl enable --now cri-docker.socket
+
 # Insttalation de pluggin cni
 
 - wget https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz
@@ -46,3 +47,33 @@
 
 -> Demarrage de minikube
 - minikube start --driver=none
+- kubectl get nodes
+- docker --
+- git clone https://github.com/ComeDobe/Projet_Complet_DevOps.git
+- ll
+- cd Projet_Complet_DevOps
+- ll
+- cd ic-webapp-1.0
+- cd sources/
+- docker build -f ./Dockerfile_v1.0 -t cdobe01/ic-webapp:v1.0 .
+- docker images
+- docker run -d --name ic-webapp-test -p 8000:8080 cdobe01/ic-webapp:v1.0
+- ip a
+-> Test de l'url
+- http://192.168.56.8:8000
+
+# Pour relancer le conteneur
+
+- docker stop ic-webapp-test
+- docker rm ic-webapp-test
+- docker run -d --name ic-webapp-test-new -p 8000:8080 cdobe01/ic-webapp:v1.0
+- docker ps -a | grep ic-weapp
+- http://192.168.56.8:8000
+
+# Redirection vers les urls
+
+- docker stop ic-webapp-test
+- docker rm ic-webapp-test
+- docker run -d --name ic-webapp-test -p 8000:8080 -e ODO_URL=http://google.fr PGADMIN_URL=htpp://youtube.com cdobe01/ic-webapp:v1.0
+
+
